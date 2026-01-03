@@ -31,7 +31,8 @@ A database of Taiko no Tatsujin(Chinese Ver.) songs
         "level_3": 8, 
         "level_4": 10, 
         "level_5": "-",
-        "subtitle": "" or null
+        "subtitle": string or null,
+        "family": "○" or null
     },
     ...
 ]

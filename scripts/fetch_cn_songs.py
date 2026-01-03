@@ -15,6 +15,8 @@ song_type_list = [
     "南梦宫原创音乐",
 ]
 
+OptionalFields = ["subtitle", "family"]
+
 
 def fetch_and_save_songs():
     """
@@ -47,14 +49,20 @@ def fetch_and_save_songs():
             current_datas = result["data"]["data"]
             for data in current_datas:
                 song_info = data["song_info"]
+
+                # Should not have been present
                 if "top_score" in song_info:
                     song_info = {
                         k: v
                         for k, v in song_info.items()
                         if k != "top_score" and k != "isPlayed"
                     }
-                if "subtitle" not in song_info:
-                    song_info["subtitle"] = None
+
+                # Should have been present
+                for field in OptionalFields:
+                    if field not in song_info:
+                        song_info[field] = None
+
                 songs_data.append(song_info)
 
         songs_data.sort(key=lambda x: x["id"])
