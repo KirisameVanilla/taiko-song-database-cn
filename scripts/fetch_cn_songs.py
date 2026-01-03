@@ -53,6 +53,8 @@ def fetch_and_save_songs():
                         for k, v in song_info.items()
                         if k != "top_score" and k != "isPlayed"
                     }
+                if "subtitle" not in song_info:
+                    song_info["subtitle"] = None
                 songs_data.append(song_info)
 
         songs_data.sort(key=lambda x: x["id"])
