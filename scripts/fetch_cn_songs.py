@@ -85,6 +85,13 @@ def fetch_and_save_songs():
                 f,
                 ensure_ascii=False,
             )
+        with open("songs_raw.json", "w", encoding="utf-8") as f:
+            json.dump(
+                songs_data,
+                f,
+                ensure_ascii=False,
+                indent=2,
+            )
 
     except requests.exceptions.RequestException as e:
         print(f"X 请求失败: {e}")
