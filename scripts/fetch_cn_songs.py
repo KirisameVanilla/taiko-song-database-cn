@@ -18,6 +18,25 @@ song_type_list = [
 OptionalFields = [("subtitle", str), ("family", bool)]
 
 
+def build_song_types_map(songs_data):
+    """按歌曲id聚合所有分类及其sort，并保持首次出现顺序。"""
+    types_map = {}
+
+    for song in songs_data:
+        song_id = song.get("id")
+        if song_id is None:
+            continue
+
+        if song_id not in types_map:
+            types_map[song_id] = []
+
+        type_item = {"type": song.get("type"), "sort": song.get("sort")}
+        if type_item not in types_map[song_id]:
+            types_map[song_id].append(type_item)
+
+    return types_map
+
+
 def fetch_and_save_songs():
     """
     从API获取歌曲数据并保存到public/songs_cn.json
@@ -66,6 +85,10 @@ def fetch_and_save_songs():
                 songs_data.append(song_info)
 
         songs_data.sort(key=lambda x: x["id"])
+
+        types_map = build_song_types_map(songs_data)
+        for song in songs_data:
+            song["types"] = types_map.get(song.get("id"), [])
 
         os.makedirs("history", exist_ok=True)
 
