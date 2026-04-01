@@ -84,11 +84,21 @@ def fetch_and_save_songs():
 
                 songs_data.append(song_info)
 
-        songs_data.sort(key=lambda x: x["id"])
-
         types_map = build_song_types_map(songs_data)
+
+        unique_songs = []
+        seen_ids = set()
         for song in songs_data:
-            song["types"] = types_map.get(song.get("id"), [])
+            song_id = song.get("id")
+            if song_id in seen_ids:
+                continue
+
+            song["types"] = types_map.get(song_id, [])
+            unique_songs.append(song)
+            seen_ids.add(song_id)
+
+        songs_data = unique_songs
+        songs_data.sort(key=lambda x: x["id"])
 
         os.makedirs("history", exist_ok=True)
 
