@@ -15,7 +15,7 @@ song_type_list = [
     "南梦宫原创音乐",
 ]
 
-OptionalFields = ["subtitle", "family"]
+OptionalFields = [("subtitle", str), ("family", bool)]
 
 
 def fetch_and_save_songs():
@@ -59,9 +59,9 @@ def fetch_and_save_songs():
                     }
 
                 # Should have been present
-                for field in OptionalFields:
+                for field, field_type in OptionalFields:
                     if field not in song_info:
-                        song_info[field] = None
+                        song_info[field] = field_type()
 
                 songs_data.append(song_info)
 
