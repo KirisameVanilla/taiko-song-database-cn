@@ -20,10 +20,8 @@ A database of Taiko no Tatsujin(Chinese Ver.) songs
 ``` json
 [
     {
-        "sort": 1112, 
         "id": 1, 
         "open_day": "07/25/2023", 
-        "type": "南梦宫原创音乐", 
         "song_name_jp": "てんぢく2000", 
         "song_name": "天竺2000", 
         "level_1": 4, 
@@ -31,8 +29,12 @@ A database of Taiko no Tatsujin(Chinese Ver.) songs
         "level_3": 8, 
         "level_4": 10, 
         "level_5": "-",
-        "subtitle": string or null,
-        "family": "○" or null
+        "subtitle": string,
+        "family": bool,
+        "types": [
+          {"type": string, "sort": number},
+          ...
+          ]
     },
     ...
 ]

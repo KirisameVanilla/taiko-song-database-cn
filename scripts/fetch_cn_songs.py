@@ -81,6 +81,8 @@ def fetch_and_save_songs():
                 for field, field_type in OptionalFields:
                     if field not in song_info:
                         song_info[field] = field_type()
+                    elif not isinstance(song_info[field], field_type):
+                        song_info[field] = field_type(song_info[field])
 
                 songs_data.append(song_info)
 
